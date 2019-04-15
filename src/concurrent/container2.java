@@ -59,6 +59,4 @@ public class container2 {
       new Thread(c::put, "producer").start();
     }
   }
-
-
 }
