@@ -1,6 +1,6 @@
 package concurrent;
 
-public class AliveLock {
+public class   AliveLock {
   Object a = new Object();
   Object b = new Object();
 
