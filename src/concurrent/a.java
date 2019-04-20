@@ -1,32 +1,22 @@
 package concurrent;
 
-public class a {
-  public synchronized void m1(){
-    System.out.println(Thread.currentThread().getName()+" is start.");
-    try {
-      Thread.sleep(10000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    System.out.println(Thread.currentThread().getName()+" is end.");
-  }
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.locks.ReentrantLock;
 
-  public void m2(){
-    System.out.println(Thread.currentThread().getName()+" is start.");
-    try {
-      Thread.sleep(5000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    System.out.println(Thread.currentThread().getName()+" is end.");
-  }
+public class a implements Callable<Integer> {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ExecutionException, InterruptedException {
     a aa = new a();
-    /*new Thread(()->aa.m1(), "m1").start();
-    new Thread(()->aa.m2(), "m2").start();*/
+    FutureTask<Integer> futureTask = new FutureTask<>(aa);
+    new Thread(futureTask).start();
+    System.out.println(futureTask.get());
+  }
 
-    new Thread(aa::m1, "m1").start();
-    new Thread(aa::m2, "m2").start();
+  @Override
+  public Integer call() throws Exception {
+    System.out.println("aaaaaaaaaaa");
+    return 1;
   }
 }
